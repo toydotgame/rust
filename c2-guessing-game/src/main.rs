@@ -5,9 +5,9 @@
  * Book.
  */
 
+use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
-use rand::Rng;
 
 fn main() {
     println!("Guess le number!");
@@ -20,18 +20,19 @@ fn main() {
 
         let mut guess = String::new();
 
-        io::stdin().read_line(&mut guess)
+        io::stdin()
+            .read_line(&mut guess)
             .expect("Couldn't read line!");
-        let guess:u16 = match guess.trim().parse() {
+        let guess: u16 = match guess.trim().parse() {
             Ok(num) => num,
-            Err(_)  => continue,
+            Err(_) => continue,
         };
-            //.expect("NaN or too big!");
+        //.expect("NaN or too big!");
         println!("Guess was {guess}");
 
         match guess.cmp(&secret) {
-            Ordering::Less =>       println!("Too small"),
-            Ordering::Greater =>    println!("Too big"),
+            Ordering::Less => println!("Too small"),
+            Ordering::Greater => println!("Too big"),
             Ordering::Equal => {
                 println!("Correct!");
                 break;
@@ -39,4 +40,3 @@ fn main() {
         }
     }
 }
-
